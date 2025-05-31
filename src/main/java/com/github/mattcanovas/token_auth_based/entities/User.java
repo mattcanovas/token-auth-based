@@ -13,9 +13,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 @Entity
 @Table(name = "tb_user", schema = "public")
+@Builder
 public class User implements Serializable {
 
     @Id

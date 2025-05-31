@@ -43,7 +43,10 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
                         userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
+        } else {
+            throw new RuntimeException("Token não informado.");
         }
+        filterChain.doFilter(request, response);
     }
 
     private String getTokenFromHeader(HttpServletRequest request) {
