@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.github.mattcanovas.token_auth_based.security.user.details.UserDetailsImpl;
 
 @Service
@@ -31,6 +32,19 @@ public class JwtTokenService {
 
         } catch (JWTCreationException e) {
             throw new JWTCreationException("Erro ao gerar token.", e);
+        }
+    }
+
+    public String getSubjectFromToken(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
+            return JWT.require(algorithm)
+                    .withIssuer(ISSUER)
+                    .build()
+                    .verify(token)
+                    .getSubject();
+        } catch (JWTVerificationException e) {
+            throw new JWTVerificationException("Token inválido ou expirado");
         }
     }
 
