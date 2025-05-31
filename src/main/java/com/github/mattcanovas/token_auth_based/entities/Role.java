@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_roles", schema = "public")
 public class Role {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +36,5 @@ public class Role {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
-
-    
 
 }
